@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Profile – Libris</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Libris</div>
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="publish.html">Publish</a></li>
+    </ul>
+  </nav>
+  <button id="toggleDark">🌙</button>
+</header>
+
+<section class="container" style="padding-top:140px;">
+
+    <!-- FOTO + NOME -->
+    <div class="profile-header">
+        <img class="profile-photo" src="https://picsum.photos/200?random=90">
+        <h1 class="profile-name">Yuri</h1>
+        <p class="profile-username">@yuri_reader</p>
+
+        <p class="profile-bio">
+            Leitor focado em literatura portuguesa.  
+            Amante de design minimalista, tecnologia e boas histórias.
+        </p>
+    </div>
+
+    <!-- ESTATÍSTICAS -->
+    <div class="profile-stats">
+        <div class="stat">
+            <h3>58</h3>
+            <p>Livros lidos</p>
+        </div>
+        <div class="stat">
+            <h3>312</h3>
+            <p>Horas de leitura</p>
+        </div>
+        <div class="stat">
+            <h3>12</h3>
+            <p>Favoritos</p>
+        </div>
+    </div>
+
+    <!-- SOBRE MIM -->
+    <section style="margin-top:50px;">
+        <h2 class="section-title">Sobre mim</h2>
+        <p class="profile-about">
+            A leitura sempre foi um refúgio e uma forma de entender melhor o mundo.
+            Me interesso principalmente por autores portugueses, estética minimalista e novas tecnologias
+            aplicadas à experiência de leitura.
+        </p>
+    </section>
+
+    <!-- ATIVIDADE RECENTE -->
+    <section style="margin-top:60px;">
+        <h2 class="section-title">Última atividade</h2>
+
+        <div class="activity-card">
+            <div>
+                <h3>Ensaio Sobre a Cegueira</h3>
+                <p>Lido recentemente · José Saramago</p>
+            </div>
+            <a href="read.html?id=3">Continuar leitura →</a>
+        </div>
+
+        <div class="activity-card">
+            <div>
+                <h3>Os Maias</h3>
+                <p>Progresso: 60% · Eça de Queirós</p>
+            </div>
+            <a href="read.html?id=1">Continuar leitura →</a>
+        </div>
+
+        <div class="activity-card">
+            <div>
+                <h3>Mensagem</h3>
+            <p>Revisitando capítulos · Fernando Pessoa</p>
+            </div>
+            <a href="read.html?id=5">Continuar leitura →</a>
+        </div>
+
+    </section>
+
+</section>
+
+<footer>© 2025 Libris Digital</footer>
+
+<script>
+// Dark mode persistence
+const toggle=document.getElementById('toggleDark');
+const theme=localStorage.getItem('libris-theme');
+if(theme==='dark') document.body.classList.add('dark');
+toggle.addEventListener('click',()=>{
+  document.body.classList.toggle('dark');
+  localStorage.setItem('libris-theme', document.body.classList.contains('dark') ? 'dark':'light');
+});
+</script>
+
+</body>
+</html>

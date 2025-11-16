@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ler</title><link rel="stylesheet" href="style.css"><script src="books.js"></script></head>
+<body>
+<header>
+  <div class="logo">Libris</div>
+  <nav><ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="library.html">Library</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="publish.html">Publish</a></li>
+  </ul></nav>
+  <button id="toggleDark">🌙</button>
+</header>
+
+<article class="read-article container" style="padding-top:60px;">
+  <h1 id="bookTitle">Livro</h1>
+  <h3 id="bookAuthor"></h3>
+
+  <p id="chapter">
+    (Trecho de demonstração) — Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    Integer ut suscipit nibh. Curabitur at dolor mollis, volutpat elit non, feugiat dui. 
+    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; 
+    Quisque ac eros id nisi tempor lacinia. Phasellus hendrerit, ex non aliquam dapibus, 
+    nisl massa fermentum velit, non vehicula odio metus at lacus.
+  </p>
+</article>
+
+<footer>© 2025 Libris Digital</footer>
+
+<script>
+// Dark mode persistence
+const toggle=document.getElementById('toggleDark');
+const theme=localStorage.getItem('libris-theme');
+if(theme==='dark') document.body.classList.add('dark');
+toggle.addEventListener('click',()=>{document.body.classList.toggle('dark'); localStorage.setItem('libris-theme', document.body.classList.contains('dark') ? 'dark':'light');});
+
+// Load book by id
+const params=new URLSearchParams(window.location.search);
+const id=Number(params.get('id'));
+document.addEventListener('DOMContentLoaded',()=>{
+  const b=books.find(x=>x.id===id);
+  if(b){document.getElementById('bookTitle').textContent=b.title; document.getElementById('bookAuthor').textContent=b.author;}
+});
+</script>
+</body>
+</html>

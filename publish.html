@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Publish – Libris</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Libris</div>
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="publish.html">Publish</a></li>
+    </ul>
+  </nav>
+  <button id="toggleDark">🌙</button>
+</header>
+
+
+<section class="container" style="padding-top:140px;">
+
+  <h1 class="section-title">Publicar Livro</h1>
+
+  <p style="color:#666;max-width:700px;margin-bottom:40px;">
+    Aqui escritores podem enviar seus livros para a plataforma.  
+    Preencha as informações abaixo e faça upload da capa e conteúdo.
+  </p>
+
+  <form class="publish-form">
+
+      <label>Título do Livro</label>
+      <input type="text" id="bookTitle" placeholder="Ex: Os Caminhos da Alma">
+
+      <label>Autor</label>
+      <input type="text" id="bookAuthor" placeholder="Seu nome">
+
+      <label>Descrição</label>
+      <textarea id="bookDescription" rows="5" placeholder="Resumo do livro..."></textarea>
+
+      <label>Capa do Livro</label>
+      <input type="file" id="bookCover" accept="image/*">
+
+      <div class="preview-box">
+        <img id="previewImg" src="" style="display:none;">
+      </div>
+
+      <label>Conteúdo do Livro</label>
+      <textarea id="bookContent" rows="10" placeholder="Cole aqui o texto do seu livro..."></textarea>
+
+      <button type="button" id="submitBook" class="publish-btn">Publicar Livro</button>
+
+  </form>
+
+  <div id="publishMessage" class="publish-msg"></div>
+
+</section>
+
+<footer>© 2025 Libris Digital</footer>
+
+<script>
+// Dark mode
+const toggle=document.getElementById('toggleDark');
+if(localStorage.getItem('libris-theme')==='dark') document.body.classList.add('dark');
+toggle.onclick=()=>{
+  document.body.classList.toggle('dark');
+  localStorage.setItem('libris-theme', document.body.classList.contains('dark')?'dark':'light');
+};
+
+// Preview da capa
+document.getElementById('bookCover').addEventListener('change', function(){
+  const file=this.files[0];
+  if(file){
+    const reader=new FileReader();
+    reader.onload=function(e){
+      const img=document.getElementById('previewImg');
+      img.src=e.target.result;
+      img.style.display='block';
+    }
+    reader.readAsDataURL(file);
+  }
+});
+
+// Publicar (salva no localStorage)
+document.getElementById('submitBook').addEventListener('click',()=>{
+
+  const title=document.getElementById('bookTitle').value.trim();
+  const author=document.getElementById('bookAuthor').value.trim();
+  const description=document.getElementById('bookDescription').value.trim();
+  const content=document.getElementById('bookContent').value.trim();
+  const cover=document.getElementById('previewImg').src;
+
+  if(!title || !author || !description || !content){
+    document.getElementById('publishMessage').textContent="Preencha todos os campos!";
+    return;
+  }
+
+  const newBook={
+    id: Date.now(),
+    title,
+    author,
+    description,
+    content,
+    cover
+  };
+
+  let myBooks = JSON.parse(localStorage.getItem('userBooks') || "[]");
+  myBooks.push(newBook);
+  localStorage.setItem('userBooks', JSON.stringify(myBooks));
+
+  document.getElementById('publishMessage').textContent="Livro publicado com sucesso!";
+});
+</script>
+
+</body>
+</html>
